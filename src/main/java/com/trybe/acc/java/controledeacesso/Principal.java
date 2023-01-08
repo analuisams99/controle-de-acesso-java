@@ -10,42 +10,65 @@ public class Principal {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     boolean mostraOpcoes = true;
+    ArrayList<Short> listaDeIdades = new ArrayList<Short>();
+    int menoresQtd = 0;
+    int adultosQtd = 0;
+    int idososQtd = 0;
+    short idadeNum;
+    String opcaoDesejada;
 
-    do {
+    while (mostraOpcoes == true) {
+
       System.out.println(
           "Entre com o número correspondente à opção desejada:\n" 
           + "1 - Acessar o estabelecimento\n"
           + "2 - Finalizar sistema e mostrar relatório");
-      String opcaoDesejada = scanner.next();
-
-      short idadeInt;
-      ArrayList<Short> listaDeIdades = new ArrayList<Short>();
+      opcaoDesejada = scanner.next();
 
       switch (opcaoDesejada) {
         case "1":
           System.out.println("Entre com a idade:");
-          String idade = scanner.next();
-          idadeInt = Short.parseShort(idade);
-          listaDeIdades.add(idadeInt);
+          String idadeStr = scanner.next();
+          idadeNum = Short.parseShort(idadeStr);
+          listaDeIdades.add(idadeNum);
 
-          if (idadeInt < 18) {
+          if (idadeNum < 18) {
             System.out.println("Pessoa cliente menor de idade, catraca liberada!");
-          } else if (idadeInt >= 18 && idadeInt <= 49) {
+          } else if (idadeNum >= 18 && idadeNum <= 49) {
             System.out.println("Pessoa adulta, catraca liberada!");
           } else {
             System.out.println("Pessoa adulta a partir de 50, catraca liberada!");
           }
           break;
         case "2":
-          System.out.println("segunda opção:");
+          for (Short idade : listaDeIdades) {  
+            if (idade < 18) {
+              menoresQtd += 1;
+            } else if (idade >= 18 && idade <= 49) {
+              adultosQtd += 1;
+            } else {
+              idososQtd += 1;
+            }
+          }
+        
+          System.out.println("----- Quantidade -----\n"
+              + "menores: " + menoresQtd + "\n"
+              + "adultas: " + adultosQtd + "\n"
+              + "a partir de 50: " + idososQtd + "\n"
+              + "\n"
+              + "----- Percentual -----\n"
+              + "menores: 10.0%\n"
+              + "adultas: 75.0%\n"
+              + "a partir de 50: 15.0%\n"
+              + "\n"
+              + "TOTAL: " + listaDeIdades.size());
           mostraOpcoes = false;
           break;
         default:
           System.out.println("Entre com uma opção válida!");
       }
-    } while (mostraOpcoes == true);
 
-
+    }
     scanner.close();
   }
 }
