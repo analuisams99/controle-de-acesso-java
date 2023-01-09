@@ -15,15 +15,13 @@ public class Principal {
     int adultosQtd = 0;
     int idososQtd = 0;
     short idadeNum;
-    String opcaoDesejada;
-
+    
     while (mostraOpcoes == true) {
-
       System.out.println(
           "Entre com o número correspondente à opção desejada:\n" 
           + "1 - Acessar o estabelecimento\n"
           + "2 - Finalizar sistema e mostrar relatório");
-      opcaoDesejada = scanner.next();
+      String opcaoDesejada = scanner.next();
 
       switch (opcaoDesejada) {
         case "1":
@@ -50,25 +48,30 @@ public class Principal {
               idososQtd += 1;
             }
           }
-        
+          int total = listaDeIdades.size();
+          
+          float menoresPercent = (menoresQtd / (float) total) * 100;
+          float adultosPercent = (adultosQtd / (float) total) * 100;
+          float idososPercent = (idososQtd / (float) total) * 100;
+
           System.out.println("----- Quantidade -----\n"
               + "menores: " + menoresQtd + "\n"
               + "adultas: " + adultosQtd + "\n"
               + "a partir de 50: " + idososQtd + "\n"
               + "\n"
               + "----- Percentual -----\n"
-              + "menores: 10.0%\n"
-              + "adultas: 75.0%\n"
-              + "a partir de 50: 15.0%\n"
+              + "menores: " + ((menoresQtd == 0) ? "0" : menoresPercent) + "%\n"
+              + "adultas: " + ((adultosQtd == 0) ? "0" : adultosPercent) + "%\n"
+              + "a partir de 50: " + ((idososQtd == 0) ? "0" : idososPercent) + "%\n"
               + "\n"
-              + "TOTAL: " + listaDeIdades.size());
+              + "TOTAL: " + total);
           mostraOpcoes = false;
           break;
         default:
           System.out.println("Entre com uma opção válida!");
       }
-
     }
+
     scanner.close();
   }
 }
